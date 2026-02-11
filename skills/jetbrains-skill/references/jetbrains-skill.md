@@ -27,6 +27,7 @@ Tip: Most tools accept `projectPath`. When known, always pass it to reduce ambig
   - Params: `projectPath`
 - `execute_run_configuration`
   - Params: `configurationName`, `timeout` (ms), `maxLinesCount`, `truncateMode`, `projectPath`
+  - Compatibility note: some IDE MCP plugin versions only accept uppercase `truncateMode` enum values (`START`, `MIDDLE`, `END`, `NONE`). Lowercase values (for example `end`) can fail with `TruncateMode does not contain element...`.
   - Returns: exit code, output, success status
 
 ### Diagnostics, symbols, refactoring
@@ -84,3 +85,5 @@ Tip: Most tools accept `projectPath`. When known, always pass it to reduce ambig
   - Runs a shell command in the IDE integrated terminal
   - Constraints (as documented): checks running state before collecting output; output capped (2000 lines); timeouts are reported; requires confirmation unless Brave Mode is enabled
   - Params: `command`, `executeInShell`, `reuseExistingTerminalWindow`, `timeout`, `maxLinesCount`, `truncateMode`, `projectPath`
+  - Compatibility note: `truncateMode` may require uppercase enum values (`START`, `MIDDLE`, `END`, `NONE`) depending on plugin version.
+  - Practical note on Windows: when `executeInShell` is not enabled, shell built-ins like `echo` may fail. Use `cmd /c <command>` or set `executeInShell=true`.

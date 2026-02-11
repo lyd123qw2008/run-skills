@@ -39,6 +39,7 @@ IDE 支持“无需确认即可运行 shell 命令或运行配置（Brave 模式
 - `execute_run_configuration`
   - 运行指定运行配置并等待其在超时内完成
   - 参数：`configurationName`、`timeout`（毫秒）、`maxLinesCount`、`truncateMode`、`projectPath`
+  - 兼容性备注：部分 IDE MCP 插件版本只接受大写 `truncateMode` 枚举（`START`、`MIDDLE`、`END`、`NONE`）。小写（如 `end`）可能报错：`TruncateMode does not contain element...`
   - 返回：退出码、输出、成功状态
 
 ### 代码检查与导航
@@ -130,4 +131,5 @@ IDE 支持“无需确认即可运行 shell 命令或运行配置（Brave 模式
     - 超时会中断并提示
     - 未开启 Brave Mode 时通常需要用户确认
   - 参数：`command`、`executeInShell`、`reuseExistingTerminalWindow`、`timeout`、`maxLinesCount`、`truncateMode`、`projectPath`
-
+  - 兼容性备注：`truncateMode` 在部分版本中要求使用大写枚举（`START`、`MIDDLE`、`END`、`NONE`）。
+  - Windows 实务备注：未启用 `executeInShell` 时，`echo` 等 shell 内建命令可能失败；可改用 `cmd /c <command>` 或设置 `executeInShell=true`。
